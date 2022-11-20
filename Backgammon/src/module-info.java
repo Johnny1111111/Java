@@ -1,9 +1,0 @@
-/**
- * 
- */
-/**
- * @author J
- *
- */
-module Backgammon {
-}
