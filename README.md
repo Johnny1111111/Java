@@ -14,4 +14,8 @@
 
 4. A feature whereby a “quit” command causes termination of the program. (Done. Checked on Nov.20.2022)
 
+# Sprint 2: Game
+1. A feature whereby when the game starts, the program rolls one die for each player to determine which player 
+goes first. The result is used for the first move. 
 
+2. A feature whereby the current player is indicated on the display
