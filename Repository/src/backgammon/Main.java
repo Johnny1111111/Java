@@ -1,33 +1,40 @@
 package backgammon;
-
 import java.util.Scanner;
-
-
 
 public class Main {
 
+  public static void play(Game game) {
+    // print the board information
+    game.displayGame();
+    // print the dice information
+    System.out.println("Dice result: " + game.roll());
+    game.toggleCurrentUser();
+  }
+
   public static void main(String args[]) {
 
+    Game game = new Settings().init();
     Scanner scanner = new Scanner(System.in);
 
-    System.out.println("Please enter the first username:\n");
-    String username1 = scanner.nextLine();
-    System.out.println();
+    while (true) {
+      System.out.println("Input the command for user: " + game.getCurrentUser());
+      String cmdInput = scanner.nextLine();
+      Command cmd = new Command(cmdInput);
+      if (cmd.isValidCmd()) {
+        switch (cmd.getCMD()) {
+          case "roll":
+            play(game);
+            break;
+          case "quit":
+            System.exit(0);
+          default:
+            break;
+        }
+      } else {
+        System.out.println("Not a valid command, try again.");
+        continue;
+      }
+    }
 
-    System.out.println("Please enter the second username:\n");
-    String username2 = scanner.nextLine();
-    System.out.println();
-
-    Game game = new Game(username1, username2);
-
-    // Username info
-    System.out.println("The first  username is: " + game.getUsername1());
-    System.out.println("The first  username is: " + game.getUsername2());
-
-    // To roll the two dices
-    // System.out.println(game.roll());
-
-
-    System.out.println();
   }
 }
