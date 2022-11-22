@@ -16,6 +16,6 @@
 
 # Sprint 2: Game
 1. A feature whereby when the game starts, the program rolls one die for each player to determine which player 
-goes first. The result is used for the first move. 
+goes first. The result is used for the first move. (Done. Checked on Nov.21.2022)
 
-2. A feature whereby the current player is indicated on the display
+2. A feature whereby the current player is indicated on the display. (Done. Checked on Nov.21.2022)
