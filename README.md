@@ -12,6 +12,6 @@
 
 3. A feature that allows the players to take turns rolling the dice. The players should be prompted to enter a command. Entering the “roll” command should cause the result of a two dice roll to displayed on the board panel and reported in the log panel. The dice should be generated randomly. (Done. Checked on Nov.19.2022)
 
-
+4. A feature whereby a “quit” command causes termination of the program. (Done. Checked on Nov.20.2022)
 
 
