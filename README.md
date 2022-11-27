@@ -19,3 +19,24 @@
 goes first. The result is used for the first move. (Done. Checked on Nov.21.2022)
 
 2. A feature whereby the current player is indicated on the display. (Done. Checked on Nov.21.2022)
+
+3. A feature that displays the pip number of every point on the board. The pip numbers should change depending 
+on which player’s turn it is.(Done. Checked on Nov.22.2022)
+
+4. A feature which lists all legal moves after the dice roll and allows the user to enter a letter code for the desired 
+move. The board should be updated to reflect the move selected. All hits and bear off should be applied. All 
+rules of backgammon should be considered.(Not done)
+
+5. A “pip” command which reports the pip count for both players.(Done. Checked on Nov.24.2022)
+
+6. A “hint” command which lists all allowed commands. The list should exclude the commands for testing.(Done. Checked on Nov.25.2022)
+
+7. A feature whereby the syntax of the commands entered are checked. An appropriate error message is
+generated if the command is invalid.(Done. Checked on Nov.26.2022)
+
+8. A feature that detects when the game is over and announces the winner of a game.(Done. Checked on Nov.26.2022)
+
+
+
+
+
