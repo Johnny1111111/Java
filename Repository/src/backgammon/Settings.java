@@ -2,12 +2,14 @@ package backgammon;
 
 import java.util.Scanner;
 
-
 public class Settings {
 
   public int pip1;
   public int pip2;
 
+  /**
+   * The initial pip count for the settings.
+   */
   public Settings() {
     this.pip1 = 167;
     this.pip2 = 167;

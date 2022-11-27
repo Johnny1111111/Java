@@ -7,6 +7,7 @@ public class Game {
 	  private User user2;
 	  private Board board;
 	  private User currentPlayer;
+	  private boolean gameOver;
 
 	  public Game() {
 	    this.user1 = new User();
@@ -14,6 +15,7 @@ public class Game {
 	    this.dice = new Dice();
 	    this.board = new Board();
 	    this.currentPlayer = null;
+	    this.gameOver = false;
 	  }
 
 	  public Game(String username1, String username2) {
@@ -79,6 +81,10 @@ public class Game {
 
 	  public String getCurrentUser() {
 	    return this.currentPlayer.getName();
+	  }
+
+	  public boolean isGameOver() {
+	    return this.gameOver;
 	  }
 
 	}

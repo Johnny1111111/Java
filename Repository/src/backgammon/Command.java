@@ -9,7 +9,7 @@ public class Command {
    */
   private String cmd;
   private ArrayList<String> validCmdList;
-  private String[] validCmds = {"roll", "quit"};
+  private String[] validCmds = {"roll", "pip", "hint", "quit"};
 
   public Command() {
     this.cmd = "";
@@ -31,5 +31,15 @@ public class Command {
   public boolean isValidCmd() {
     return (this.validCmdList.contains(this.cmd));
   }
-}
 
+  public String[] getAllCmds() {
+    return this.validCmds;
+  }
+
+  public void printAllCmds() {
+    System.out.println("This is all the valid commands"); 
+    for (int i = 0; i < this.validCmds.length; i++) {
+      System.out.println("- " + this.validCmds[i]); 
+    }
+  }
+}
