@@ -25,7 +25,7 @@ on which player’s turn it is.(Done. Checked on Nov.22.2022)
 
 4. A feature which lists all legal moves after the dice roll and allows the user to enter a letter code for the desired 
 move. The board should be updated to reflect the move selected. All hits and bear off should be applied. All 
-rules of backgammon should be considered.(Not done)
+rules of backgammon should be considered.(Done. Checked on Nov.29.2022)
 
 5. A “pip” command which reports the pip count for both players.(Done. Checked on Nov.24.2022)
 
