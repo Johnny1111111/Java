@@ -1,6 +1,5 @@
 package backgammon;
 
-
 public class Game {
 	  private Dice dice;
 	  private User user1;
@@ -62,9 +61,19 @@ public class Game {
 
 	  public void displayGame() {
 	    // display board
-	    this.board.output();
+	    String checker = this.getCurrentUserID() == 1 ? this.board.getChecker1() : this.board.getChecker2();
+	    System.out.println("Current user: " + this.currentPlayer.getName() + "\t" + "Checker: " + checker);
+	    this.board.output(this.getUserID(this.currentPlayer));
 	    // display game info
 	    // System.out.println(this.boardInfo());
+	  }
+
+	  public int getUserID(User user) {
+	    return (user.equals(this.user1) ? 1 : 2);
+	  }
+
+	  public int getCurrentUserID() {
+	    return this.getUserID(this.currentPlayer);
 	  }
 
 	  public String roll() {
@@ -85,6 +94,14 @@ public class Game {
 
 	  public boolean isGameOver() {
 	    return this.gameOver;
+	  }
+
+	  public Board getBoard() {
+	    return this.board;
+	  }
+
+	  public String getCurrentChecker() {
+	    return (this.getCurrentUserID() == 1) ? this.board.getChecker1() : this.board.getChecker2();
 	  }
 
 	}

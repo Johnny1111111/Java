@@ -48,4 +48,12 @@ public class Settings {
     return game;
   }
 
+  public void setCurrentUserPip(int userID, int pip) {
+    if(userID == 1) {
+      this.pip1 = pip;
+    } else {
+      this.pip2 = pip;
+    }
+  }
+
 }
