@@ -1,7 +1,12 @@
 package backgammon;
 
 import java.util.Scanner;
-
+/*
+ * A settings class which contains the information about the game,
+ * - pip for user1 and pip for user2;
+ * - init the game to start
+ * - set the pip value for the current user
+ */
 public class Settings {
 
   public int pip1;
@@ -24,6 +29,9 @@ public class Settings {
     return this.init(false);
   }
 
+  /*
+   * Initialise the game
+   */
   public Game init(boolean verbose) {
 
     Scanner scanner = new Scanner(System.in);
@@ -37,6 +45,7 @@ public class Settings {
     System.out.println();
 
     Game game = new Game(username1, username2);
+    // decide which player to start by rolling dice
     game.decidePlayer();
 
     // Username info
@@ -48,6 +57,11 @@ public class Settings {
     return game;
   }
 
+  /**
+   * A function to set the pip value for the current user
+   * @param userID the user id to update the pip value
+   * @param pip the updated pip value
+   */
   public void setCurrentUserPip(int userID, int pip) {
     if(userID == 1) {
       this.pip1 = pip;

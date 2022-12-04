@@ -9,7 +9,7 @@ public class Command {
    */
   private String cmd;
   private ArrayList<String> validCmdList;
-  private String[] validCmds = {"roll", "pip", "hint", "quit"};
+  private String[] validCmds = {"roll", "pip", "hint", "quit", "dice"};
 
   public Command() {
     this.cmd = "";
@@ -28,10 +28,15 @@ public class Command {
     return this.cmd;
   }
 
+  // check if the user-input command is valid or not
   public boolean isValidCmd() {
-    return (this.validCmdList.contains(this.cmd));
+    if (this.validCmdList.contains(this.cmd)) return true;
+    if (this.isDiceCmd()) return true;
+    if (this.isTestCmd()) return true;
+    return false;
   }
 
+  // return a list of available commands
   public String[] getAllCmds() {
     return this.validCmds;
   }
@@ -41,5 +46,14 @@ public class Command {
     for (int i = 0; i < this.validCmds.length; i++) {
       System.out.println("- " + this.validCmds[i]); 
     }
+  }
+
+  // Use the regular expression to check the command type
+  public boolean isDiceCmd() {
+    return this.cmd.matches("dice \\d \\d");
+  }
+
+  public boolean isTestCmd() {
+    return this.cmd.matches("test .*");
   }
 }

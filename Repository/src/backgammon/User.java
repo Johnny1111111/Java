@@ -1,5 +1,7 @@
 package backgammon;
-
+/*
+ * A User object, which contains the user information, username
+ */
 class User {
 	  private String username;
 

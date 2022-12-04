@@ -5,10 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MoveAction;
-
+/**
+ * The board class contains all the specific information about a game board
+ */
 public class Board {
 
+  /**
+   * The class Point is used to represent a point contains x and y
+   */
   class Point {
     public int x;
     public int y;
@@ -25,26 +29,39 @@ public class Board {
 
   }
 
+  // A string array board to represent the intial state of the board
   private String[][] board;
+  // An ArrayList type board_list to represent the board in a dynamic way
   private ArrayList<ArrayList<String>> board_list;
+  // A column represents the bar
+  private ArrayList<String> bar_column;
+
   private String checker1 = "O";
   private String checker2 = "X";
 
   private String firstRow1 = "13--+---+---+---+---18 BAR  19--+---+---+---+--24";
   private String lastRow1 = "12--+---+---+---+---07 BAR  06--+---+---+---+--01";
 
-  private String firstRow2 = "01--+---+---+---+---06 BAR  07--+---+---+---+--12";
-  private String lastRow2 = "24--+---+---+---+---19 BAR  18--+---+---+---+--13";
+  // private String firstRow2 = "01--+---+---+---+---06 BAR
+  // 07--+---+---+---+--12";
+  // private String lastRow2 = "24--+---+---+---+---19 BAR 18--+---+---+---+--13";
 
   private String bar = "|"; // the empty checker placeholder
   private int barCount;
 
+  // boolean value to represnet whether or not there is checker 1 or checker 2 on the bar
+  private boolean checkerOnBar1;
+  private boolean checkerOnBar2;
+
   public Board() {
     this.barCount = 0;
+    this.checkerOnBar1 = false;
+    this.checkerOnBar2 = false;
     this.board = new String[11][13];
     this.board_list = new ArrayList<>();
-    // i = 0 represents off
-    // i = 25 represents bar
+    this.bar_column = new ArrayList<>();
+    // i = 0 represents off for user 1
+    // i = 25 represents off for user 2
     for (int i = 0; i <= 25; i++) {
       board_list.add(new ArrayList<>());
     }
@@ -124,6 +141,12 @@ public class Board {
     return this.board[p.x][p.y].equals(checker1) || this.board[p.x][p.y].equals(checker2);
   }
 
+  /**
+   * Move the checker from one point to another point
+   * @param pa initial point
+   * @param pb destination point
+   * @return true if the movement is success otherwise false
+   */
   public boolean moveChecker(Point pa, Point pb) {
     if (isChecker(pa)) {
       String checker = this.board[pa.x][pa.y];
@@ -168,13 +191,15 @@ public class Board {
         // print the bar column
         String itemOnBar;
         if (j == 18) {
+
           try {
-            itemOnBar = this.board_list.get(0).get(this.barCount++);
-            System.out.println(itemOnBar + "   ");
+            itemOnBar = this.bar_column.get(this.barCount++);
+            System.out.print(itemOnBar + "   ");
 
           } catch (IndexOutOfBoundsException e) {
             System.out.print(" " + "   ");
           }
+
         }
       }
       System.out.println();
@@ -201,8 +226,8 @@ public class Board {
         String itemOnBar;
         if (j == 7) {
           try {
-            itemOnBar = this.board_list.get(0).get(this.barCount++);
-            System.out.println(itemOnBar + "   ");
+            itemOnBar = this.bar_column.get(this.barCount++);
+            System.out.print(itemOnBar + "   ");
 
           } catch (IndexOutOfBoundsException e) {
             System.out.print(" " + "   ");
@@ -213,7 +238,12 @@ public class Board {
     }
   }
 
+  /**
+   * Print the whole board to the command line
+   * @param userID
+   */
   public void output(int userID) {
+    this.barCount = 0;
     String firstRow, lastRow;
     // firstRow = (userID == 1) ? firstRow1 : firstRow2;
     firstRow = firstRow1;
@@ -239,9 +269,12 @@ public class Board {
     int count = 1;
     Map<Integer, Map<Integer, Integer>> options = new HashMap();
     System.out.println("Select moves for checker " + checker + ":");
+
+    int desColumn = -1;
+    // Scan the board
     for (int i = 0; i < this.board_list.size(); i++) {
+
       ArrayList<String> column = this.board_list.get(i);
-      int desColumn = -1;
       if (checker.equals(this.checker1)) {
         // for user 1
         desColumn = i - dice;
@@ -267,6 +300,44 @@ public class Board {
       }
     }
 
+    // on-bar checker
+
+    // if the current user has on-bar checker
+    if (checker.equals(this.checker1) && checkerOnBar1) {
+      desColumn = 25 - dice;
+      options.clear();
+      count = 1;
+    } else if (checker.equals(this.checker2) && checkerOnBar2) {
+      desColumn = 0 + dice;
+      options.clear();
+      count = 1;
+    }
+
+    if (options.size() == 0) {
+      // if the destination column is empty or only get one opponent checker
+      if (this.board_list.get(desColumn).isEmpty() || this.board_list.get(desColumn).size() == 1) {
+
+        Map<Integer, Integer> option = new HashMap<>();
+        option.put(25, desColumn);
+        options.put(count++, option);
+
+      } else if (this.board_list.get(desColumn).size() > 1 && this.board_list.get(desColumn).get(0).equals(checker)) {
+
+        Map<Integer, Integer> option = new HashMap<>();
+        option.put(25, desColumn);
+        options.put(count++, option);
+
+      }
+
+      // change the flag
+      if (!this.bar_column.contains(this.checker1)) {
+        this.checkerOnBar1 = false;
+      } else if (!this.bar_column.contains(this.checker2)) {
+        this.checkerOnBar2 = false;
+      }
+
+    }
+
     for (int i = 1; i < count; i++) {
       String option = options.get(i).toString();
       option = option.replace("{", "");
@@ -278,14 +349,103 @@ public class Board {
     return options;
   }
 
-  public void move(int column, int desColumn) {
-    if (this.moveable(column, desColumn)) {
-      ArrayList<String> initialList = this.board_list.get(column);
-      String lastOne = initialList.remove(initialList.size() - 1);
-      this.board_list.get(desColumn).add(lastOne);
+  /**
+   * Move the specific checker from column to desColumn
+   * @param checker the checker need to be moved
+   * @param column the initial column
+   * @param desColumn the destination column
+   */
+  public void move(String checker, int column, int desColumn) {
+
+    // move from the bar
+    if (column == 25) {
+
+      // if the destination column is empty
+      if (this.board_list.get(desColumn).isEmpty()) {
+        this.bar_column.remove(checker);
+        this.board_list.get(desColumn).add(checker);
+      } else if (this.board_list.get(desColumn).size() == 1) {
+        // if the destination column has one checker
+        // if they are the same checker
+        if (this.board_list.get(desColumn).get(0).equals(checker)) {
+          this.bar_column.remove(checker);
+          this.board_list.get(desColumn).add(checker);
+        } else {
+          // if they are not the same type
+          String remove = this.board_list.get(desColumn).remove(0);
+          this.bar_column.add(remove);
+
+          if (remove.equals(checker1)) {
+            this.checkerOnBar1 = true;
+          } else {
+            this.checkerOnBar2 = true;
+          }
+
+          this.bar_column.remove(checker);
+          this.board_list.get(desColumn).add(checker);
+        }
+        this.bar_column.remove(checker);
+      } else if (this.board_list.get(desColumn).size() > 1) {
+        // if they are the same checker
+        if (this.board_list.get(desColumn).get(0).equals(checker)) {
+          this.bar_column.remove(checker);
+          this.board_list.get(desColumn).add(checker);
+        }
+      }
+    } else {
+      // move from the board
+      if (this.moveable(column, desColumn)) {
+        ArrayList<String> initialList = this.board_list.get(column);
+        String lastOne = initialList.remove(initialList.size() - 1);
+        // if there is one opponent checker on the column
+        // then move it to the bar
+        if (this.board_list.get(desColumn).size() == 1) {
+          if (!this.board_list.get(desColumn).get(0).equals(lastOne)) {
+            String opponentChecker = this.board_list.get(desColumn).remove(0);
+            // add to bar
+            this.bar_column.add(opponentChecker);
+            if (opponentChecker.equals(this.checker1)) {
+              this.checkerOnBar1 = true;
+            } else {
+              this.checkerOnBar2 = true;
+            }
+          }
+        }
+        this.board_list.get(desColumn).add(lastOne);
+      }
+
     }
+
+    // update the checkerOnBar flags
+    this.updateCheckerOnBar();
+
   }
 
+  /**
+   * Update the checker-on-bar item
+   */
+  public void updateCheckerOnBar() {
+
+    if (this.bar_column.contains(this.checker1)) {
+      this.checkerOnBar1 = true;
+    } else {
+      this.checkerOnBar1 = false;
+    }
+
+    if (this.bar_column.contains(this.checker2)) {
+      this.checkerOnBar2 = true;
+    } else {
+      this.checkerOnBar2 = false;
+    }
+
+  }
+
+  /**
+   * Return true if checker from column to desColumn is moveable
+   * @param column
+   * @param desColumn
+   * @return
+   */
   public boolean moveable(int column, int desColumn) {
     String checkerType;
     boolean moveable = false;
@@ -325,7 +485,7 @@ public class Board {
           if (column.get(0).equals(this.checker1)) {
             pip += i * column.size();
           }
-        } else if(userID == 2) {
+        } else if (userID == 2) {
           if (column.get(0).equals(this.checker2)) {
             pip += (25 - i) * column.size();
           }

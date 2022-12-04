@@ -1,6 +1,8 @@
 package backgammon;
 import java.util.Random;
-
+/**
+ * The dice class represents the dice object
+ */
 public class Dice {
 
   public String roll() {
