@@ -25,7 +25,7 @@ on which player’s turn it is.(Done. Checked on Nov.22.2022)
 
 4. A feature which lists all legal moves after the dice roll and allows the user to enter a letter code for the desired 
 move. The board should be updated to reflect the move selected. All hits and bear off should be applied. All 
-rules of backgammon should be considered.(Done. Checked on Nov.29.2022)
+rules of backgammon should be considered.(Done. Checked on Dec.3.2022)
 
 5. A “pip” command which reports the pip count for both players.(Done. Checked on Nov.24.2022)
 
@@ -37,6 +37,9 @@ generated if the command is invalid.(Done. Checked on Nov.26.2022)
 8. A feature that detects when the game is over and announces the winner of a game.(Done. Checked on Nov.26.2022)
 
 
+# Sprint 3: Match
+1. A “dice <int> <int>” command which cause the subsequent dice roll to equal the given numbers. (Done. Checked on Dec.2.2022)
 
+2. A “test <filename>” command which performs the commands in the given text file.(Done. Checked on Dec.3.2022)
 
 
