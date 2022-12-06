@@ -40,6 +40,6 @@ generated if the command is invalid.(Done. Checked on Nov.26.2022)
 # Sprint 3: Match
 1. A “dice <int> <int>” command which cause the subsequent dice roll to equal the given numbers. (Done. Checked on Dec.2.2022)
 
-2. A “test <filename>” command which performs the commands in the given text file.(Done. Checked on Dec.3.2022)
+2. A “test <filename>” command which performs the commands in the given text file.(Done. Checked on Dec.5.2022)
 
 
