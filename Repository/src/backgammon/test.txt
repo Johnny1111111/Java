@@ -1,0 +1,6 @@
+dice 2 1
+roll
+1
+roll
+1
+quit
